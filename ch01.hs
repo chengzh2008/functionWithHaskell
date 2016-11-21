@@ -60,7 +60,40 @@ link t
 convert :: Int -> String
 convert = convert6
 
+{-|
+  Exercise D
+  words . map toLower = map (map toLower) . words
+-}
 
 {-|
-  Exercise
+  Exercise F
+  print a song
 -}
+
+song :: Int -> String
+song n
+  | n == 0 = ""
+  | otherwise = song (n-1) ++ "\n" ++ verse n
+  where
+    verse n = line1 n ++ line2 n ++ line3 n ++ line4 n
+
+line1, line2, line3, line4 :: Int -> String
+line1 n
+  | n == 1 = "One man went to mow\n"
+  | otherwise = numbers !! (n-2) ++ " men went to mow\n"
+
+line2 n = "Went to mow a meadow\n"
+
+line3 n
+  | n == 1 = "One man and his dog\n"
+  | otherwise = numbers !! (n-2) ++ " men, " ++ count (n-2) ++ "one man and his dog\n"
+
+line4 n = "Went to mow a meadow\n\n"
+
+count :: Int -> String
+count n
+  | n == 0 = ""
+  | otherwise = numbs !! (n-1) ++ " men, " ++ count (n-1)
+
+numbers = ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"]
+numbs = init . map (map toLower) $ numbers
