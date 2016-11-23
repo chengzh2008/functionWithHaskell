@@ -1,3 +1,4 @@
+import Data.Char
 {-|
   Exercise D
 
@@ -81,3 +82,37 @@ showMonth m
   ten-digit card identification numbers (CINs)
 
 -}
+type CIN = String
+
+addSum :: CIN -> CIN
+addSum s = s ++ show1 (getSum s)
+
+show1 :: Int -> String
+show1 n = (show $ n `div` 10) ++ (show $ n `mod` 10)
+
+getSum :: CIN -> Int
+getSum = sum . map getDigit
+
+getDigit :: Char -> Int
+getDigit c = read [c]
+
+valid, valid2 :: CIN -> Bool
+valid s = s == addSum (take 8 s)
+valid2 s = read (drop 8 s) == getSum (take 8 s)
+
+{-|
+  Exercise I
+  write a function used in an interactive session to tell if a string is apalindra
+-}
+
+palindrome :: IO ()
+palindrome = do
+  putStrLn "Enter a string"
+  input <- getLine
+  if isPalindrome input
+     then putStrLn "Yes!"
+     else putStrLn "No!"
+
+isPalindrome :: String -> Bool
+isPalindrome s = reverse ys == ys
+  where ys = map toLower $ filter isAlpha s
